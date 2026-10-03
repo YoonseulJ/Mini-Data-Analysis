@@ -1,0 +1,10 @@
+-   This repository contains the R code in a quarto document for a mini data analysis conducted on wildfire data.
+-   Relevant files include:
+-     The quarto file 'MiniDataAnalysis1.qmd' with the analysis and code.
+-     The "dat" folder containing various datasets in CSV format, of which I 'utilized squirrel-data.csv'.
+-     .DS_Store with metadata
+-     gitattributes
+- 
+-   This analysis conducts an exploratory data analysis on using R on the data contained in 'squirrel-data.csv' as well as the wildfire data from diversedata.
+-   Other libraries used in this project include tidyverse and moderndive.
+-   In order to better understand the analysis on wildfires in this project, it is good to know the meaning of the fire size classes and have a basic idea of latitude and longitude coordinates.
