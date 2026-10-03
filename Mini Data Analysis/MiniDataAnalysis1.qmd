@@ -89,14 +89,35 @@ One way to narrowing down your selection is to *explore* the data sets. Use your
 #### Data Set 1
 ```{r}
 ### Explore 3 variables of data set 1 ###
-coffee <- read_csv('dat/coffeeCensus.csv')
-glimpse(coffee)
+squirrels <- read_csv('dat/squirrel-data.csv')
+glimpse(squirrels)
 
+squirrels |> group_by(Activities) |>
+    filter(n() > 10) |> 
+    ggplot(aes(y = Activities)) + geom_bar()
+
+squirrels |>
+    ggplot(aes(x = `Squirrel Longitude (-DD.DDDDDD)`, y = `Squirrel Latitude (DD.DDDDDD)`)) + 
+    geom_point(alpha = 0.2) + 
+    theme(legend.position = 'bottom')
+
+
+simple_squirrels <- squirrels |>
+    rename(
+        longitude = `Squirrel Longitude (-DD.DDDDDD)`,
+        latitude = `Squirrel Latitude (DD.DDDDDD)`
+    )
+
+simple_squirrels |>
+    filter(longitude < 0) |>
+    ggplot(aes(x = longitude, y = latitude, color = `Area ID`)) + 
+    geom_point(alpha = 0.2) + 
+    theme(legend.position = 'bottom')
 ```
 
 
 Write your findings here.
-
+The only activities shared among more than 10 squirrels were runing, foraging, eating and foraging, eating, climbing, chasing and those that were doing nothing or did not have their activity recorded. According to the scatterplot, it appears there was a latitude entry that was mistyped as 80 instead of -80. Filtering it out the squirrels appear to have been densely recorded in particular patches of the park.
 
 
 
@@ -106,21 +127,27 @@ Write your findings here.
 glimpse(wildfire)
 
 wildfire |>
-    ggplot(aes(x = longitude, y = latitude, color = size_class)) + 
+    ggplot(aes(x = longitude, y = latitude, color = general_cause)) + 
     geom_point(alpha = 0.2) + 
     theme(legend.position = 'bottom')
 
-wildfire |>
-    ggplot(aes(x = longitude)) + geom_histogram(bins = 10)
+wildfire |> 
+    group_by(general_cause) |>
+    summarize()
 
-wildfire |>
-    ggplot(aes(x = latitude)) + geom_histogram(bins = 10)
+wildfire |> filter(general_cause == 'Agriculture Industry') |>
+    ggplot(aes(x = longitude, y = latitude, color = size_class)) +
+    geom_point(alpha = 0.3) + 
+    theme(legend.position = 'bottom')
 
+wildfire |> filter(general_cause == 'Agriculture Industry') |>
+    ggplot(aes(x = size_class)) + 
+    geom_bar()
 
 ```
 
 Write your findings here.
-Wildfires in the areas recorded become significantly more common and large further south and around -115 degrees longitude.
+Wildfires in the areas recorded become significantly more common and large further south and around -115 degrees longitude. The agricultural industry is the top general cause of wildfires with a heavy concentration around 58 degrees latitude and 116 degrees longitude. Size class A is by far the most common among fires started by the agricultural industry.
 
 
 <!----------------------------------------------------------------------------->
@@ -137,7 +164,7 @@ It's time to choose only one data set. State the data set that you've chosen, an
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+I will work on the wildfire dataset.
 
 <!----------------------------------------------------------------------------->
 
@@ -152,7 +179,8 @@ Write your research questions **as questions**, and be specific. You can change 
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+1. Is there a relationship between the general cause and most common size type of a fire?
+2. Does this relationship change based on location?
 
 
 <!----------------------------------------------------------------------------->
