@@ -8,3 +8,5 @@
 -   This analysis conducts an exploratory data analysis on using R on the data contained in 'squirrel-data.csv' as well as the wildfire data from diversedata.
 -   Other libraries used in this project include tidyverse and moderndive.
 -   In order to better understand the analysis on wildfires in this project, it is good to know the meaning of the fire size classes and have a basic idea of latitude and longitude coordinates.
+
+Generative AI was not used in any way throughout this assignment.

@@ -72,9 +72,9 @@ Out of the 5 data sets listed above, choose **2** that appeal to you based on th
 
 <!-------------------------- Start your work below ---------------------------->
 
-1: wildfire
+1: squirrels
 
-2: coffee census
+2: wildfires
 
 
 <!----------------------------------------------------------------------------->
