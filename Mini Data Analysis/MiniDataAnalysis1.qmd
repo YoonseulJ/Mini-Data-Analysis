@@ -207,7 +207,9 @@ Your task is to create a table that calculates the proportion of missing values 
 
 ```{r}
 ### Explore missingness here ###
-
+na_props <- wildfire |>
+    summarise(across(everything(), ~ mean(is.na(.))))
+glimpse(na_props)
 ```
 
 
@@ -231,8 +233,7 @@ If missingness is not an issue, describe why.
 
 <!-------------------------- Start your work below ---------------------------->
 
-
-
+Missingness will not be an issue when analyzing the relationship between the general cause and size class of fires as both columns have 0 missing points of data. As for the secondary question regarding the influence of location, both latitude and longitude columns are not missing any data as well.
 
 <!----------------------------------------------------------------------------->
 
@@ -241,7 +242,7 @@ If missingness is not an issue, describe why.
 
 ### 2.3: Tidy your Data **(10 points)**
 
-Produce a tidy data set that could be used to answer your research questions. **Please ensure you have at least one quantitative (numeric) and one categorical variable in your data set. It's okay you need to include a less relevant variable in your tidied data to ensure this.**
+Produce a tidy data set that could be used to answer your research questions. **Please ensure you have at least one quantitative (numeric) and one categorical variable in your data set. It's okay if you need to include a less relevant variable in your tidied data to ensure this.**
 
 To tidy your data, you should:
 
@@ -257,9 +258,12 @@ Show the first 6 rows of the tidied data.
 
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
+#Selecting columns for size, location, and cause
+#Also selecting temperature as an extra quantitative variable
+tidyfires <- wildfire |>
+    select(size_class, latitude, longitude, general_cause, temperature)
 
-
-
+head(tidyfires, 6)
 
 ```
 
@@ -274,9 +278,21 @@ Show the outputted table.
 
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
+tidyfires |> 
+    summarise(
+        mean_lat = mean(latitude),
+        max_lat = max(latitude),
+        min_lat = min(latitude),
 
+        mean_long = mean(longitude),
+        max_long = max(longitude),
+        min_long = min(longitude),
 
-
+        mean_temp = mean(temperature, na.rm = TRUE),
+        max_temp = max(temperature, na.rm = TRUE),
+        min_temp = min(temperature, na.rm = TRUE)
+    ) |>
+        glimpse()
 
 ```
 
